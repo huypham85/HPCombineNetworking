@@ -7,8 +7,13 @@ public enum NetworkError: Error {
     case invalidURL
     case noResponse
     case unauthorized
-    case unexpectedStatusCode
+    case unexpectedStatusCode(HTTPURLResponse)
     case unknown
+    case badRequest
+    case forbidden
+    case notFound
+    case serverError
+    case custom(String)
 
     public var customMessage: String {
         switch self {
