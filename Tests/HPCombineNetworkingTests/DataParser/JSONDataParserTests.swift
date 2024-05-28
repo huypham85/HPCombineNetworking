@@ -3,11 +3,6 @@ import Foundation
 @testable import HPCombineNetworking
 import XCTest
 
-struct User: Codable {
-    let id: Int
-    let name: String
-}
-
 class JSONDataParserTests: XCTestCase {
     var jsonDataParser: JSONDataParser!
 

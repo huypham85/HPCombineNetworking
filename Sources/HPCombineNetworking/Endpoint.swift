@@ -18,9 +18,6 @@ public protocol Endpoint {
     
     var bodyParameters: BodyParameters? { get }
     
-    /// Provides stub data for use in testing. Default is `Data()`.
-    var sampleData: Data { get }
-    
     /// The headers to be used in the request.
     var headers: [String: String] { get }
 }
@@ -60,4 +57,36 @@ public extension Endpoint {
         
         return urlRequest
     }
+}
+
+// MARK: - Example instances for testing
+public struct User: Codable, Equatable {
+    let id: Int
+    let name: String
+}
+
+public struct GetUserEndpoint: Endpoint {
+    public typealias Response = User
+    
+    init(baseURL: String = "https://example.com", path: String = "/", method: RequestMethod = .get, queryParameters: [String : Any]? = nil, bodyParameters: BodyParameters? = nil, headers: [String : String] = [:]) {
+        self.baseURL = URL(string: baseURL)!
+        self.path = path
+        self.method = method
+        self.queryParameters = queryParameters
+        self.bodyParameters = bodyParameters
+        self.headers = headers
+    }
+    
+    public var baseURL: URL
+    
+    public var path: String
+    
+    public var method: RequestMethod
+    
+    public var queryParameters: [String : Any]?
+    
+    public var bodyParameters: BodyParameters?
+    
+    public var headers: [String : String]
+    
 }
