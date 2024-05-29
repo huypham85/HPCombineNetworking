@@ -9,10 +9,12 @@ public protocol Networkable {
 public final class NetworkService: Networkable {
     private let parser: DataParser
     private let errorHandler: NetworkErrorHandling
+    private let session: URLSession
     
-    init(parser: DataParser, errorHandler: NetworkErrorHandling) {
+    init(parser: DataParser, errorHandler: NetworkErrorHandling, session: URLSession = .shared) {
         self.parser = parser
         self.errorHandler = errorHandler
+        self.session = session
     }
     
     public func execute<T: Endpoint>(request: T) -> AnyPublisher<T.Response, NetworkError> where T.Response: Codable {
@@ -23,7 +25,7 @@ public final class NetworkService: Networkable {
             return Fail(error: error as? NetworkError ?? NetworkError.unknown).eraseToAnyPublisher()
         }
         
-        return URLSession.shared.dataTaskPublisher(for: urlRequest)
+        return session.dataTaskPublisher(for: urlRequest)
             .subscribe(on: DispatchQueue.global(qos: .background))
             .tryMap { [weak self] data, response -> T.Response in
                 guard let self = self else {
