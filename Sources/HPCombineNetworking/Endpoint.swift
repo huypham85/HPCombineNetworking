@@ -66,6 +66,11 @@ public struct User: Codable, Equatable {
 }
 
 public struct GetUserEndpoint: Endpoint {
+    var absoluteURL: URL? {
+        let urlRequest = try? buildURLRequest()
+        return urlRequest?.url
+    }
+    
     public typealias Response = User
     
     init(baseURL: String = "https://example.com", path: String = "/", method: RequestMethod = .get, queryParameters: [String : Any]? = nil, bodyParameters: BodyParameters? = nil, headers: [String : String] = [:]) {
