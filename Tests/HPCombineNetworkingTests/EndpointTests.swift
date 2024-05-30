@@ -1,7 +1,7 @@
 
 import Foundation
-import XCTest
 @testable import HPCombineNetworking
+import XCTest
 
 class EndpointTests: XCTestCase {
     func testJapanesesQueryParameters() throws {
@@ -57,8 +57,24 @@ class EndpointTests: XCTestCase {
         XCTAssertNil(urlRequest?.httpBody)
     }
     
+    func testPOSTFormURLEncodedRequest() throws {
+        let parameters: [String: Any] = ["id": "1", "name": "Huy", "hello": "yellow"]
+        
+        let request = GetUserEndpoint(method: .post, bodyParameters: FormURLEncodedBodyParameters(formObject: parameters))
+        
+        let urlRequest = try request.buildURLRequest()
+        
+        let createdObject = urlRequest.httpBody.flatMap {
+            try? URLEncodedSerialization.object(from: $0, encoding: .utf8)
+        }
+        XCTAssertEqual(createdObject?["id"], "1")
+        XCTAssertEqual(createdObject?["name"], "Huy")
+        XCTAssertEqual(createdObject?["hello"], "yellow")
+    }
+    
     func testBuildURL() {
         // MARK: - baseURL = https://example.com
+
         XCTAssertEqual(
             GetUserEndpoint(baseURL: "https://example.com", path: "").absoluteURL,
             URL(string: "https://example.com")
@@ -125,6 +141,7 @@ class EndpointTests: XCTestCase {
         )
         
         // MARK: - baseURL = https://example.com/
+
         XCTAssertEqual(
             GetUserEndpoint(baseURL: "https://example.com/", path: "").absoluteURL,
             URL(string: "https://example.com/")
@@ -196,6 +213,7 @@ class EndpointTests: XCTestCase {
         )
         
         // MARK: - baseURL = https://example.com/api
+
         XCTAssertEqual(
             GetUserEndpoint(baseURL: "https://example.com/api", path: "").absoluteURL,
             URL(string: "https://example.com/api")
@@ -267,6 +285,7 @@ class EndpointTests: XCTestCase {
         )
         
         // MARK: - baseURL = https://example.com/api/
+
         XCTAssertEqual(
             GetUserEndpoint(baseURL: "https://example.com/api/", path: "").absoluteURL,
             URL(string: "https://example.com/api/")
@@ -338,6 +357,7 @@ class EndpointTests: XCTestCase {
         )
         
         //　MARK: - baseURL = https://example.com///
+
         XCTAssertEqual(
             GetUserEndpoint(baseURL: "https://example.com///", path: "").absoluteURL,
             URL(string: "https://example.com///")
