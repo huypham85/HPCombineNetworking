@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "HPCombineNetworking",
     platforms: [
-        .iOS(.v14),
+        .iOS(.v13),
         .macOS(.v12),
         .watchOS(.v8)
     ],
