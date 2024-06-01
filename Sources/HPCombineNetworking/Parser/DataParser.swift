@@ -6,7 +6,7 @@ protocol DataParser {
     func parse<T: Decodable>(_ data: Data) throws -> T
 }
 
-class JSONDataParser: DataParser {
+public class JSONDataParser: DataParser {
     var decoder: JSONDecoder
     
     public init(decoder: JSONDecoder) {
