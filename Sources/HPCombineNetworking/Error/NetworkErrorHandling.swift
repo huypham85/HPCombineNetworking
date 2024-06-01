@@ -6,6 +6,9 @@ public protocol NetworkErrorHandling {
 }
 
 public class NetworkErrorHandler: NetworkErrorHandling {
+    
+    public init() {}
+    
     public func handle(_ error: Error) -> NetworkError {
         switch error {
         case is DecodingError:
