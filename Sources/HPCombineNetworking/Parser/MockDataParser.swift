@@ -5,7 +5,7 @@ class MockDataParser: DataParser {
     var decoder: JSONDecoder
     var parseStub: ((Data) throws -> Any)?
     
-    init(decoder: JSONDecoder = JSONDecoder()) {
+    public init(decoder: JSONDecoder = JSONDecoder()) {
         self.decoder = decoder
     }
     

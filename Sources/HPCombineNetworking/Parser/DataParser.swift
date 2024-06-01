@@ -9,7 +9,7 @@ protocol DataParser {
 class JSONDataParser: DataParser {
     var decoder: JSONDecoder
     
-    init(decoder: JSONDecoder) {
+    public init(decoder: JSONDecoder) {
         self.decoder = decoder
     }
     
