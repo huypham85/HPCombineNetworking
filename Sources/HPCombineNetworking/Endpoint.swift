@@ -73,7 +73,14 @@ public struct GetUserEndpoint: Endpoint {
     
     public typealias Response = User
     
-    public init(baseURL: String = "https://example.com", path: String = "/", method: RequestMethod = .get, queryParameters: [String : Any]? = nil, bodyParameters: BodyParameters? = nil, headers: [String : String] = [:]) {
+    public init(
+        baseURL: String = "https://example.com",
+        path: String = "/",
+        method: RequestMethod = .get,
+        queryParameters: [String : Any]? = nil,
+        bodyParameters: BodyParameters? = nil,
+        headers: [String : String] = [:]
+    ) {
         self.baseURL = URL(string: baseURL)!
         self.path = path
         self.method = method

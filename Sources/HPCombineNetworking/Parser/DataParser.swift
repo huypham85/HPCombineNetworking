@@ -9,8 +9,12 @@ public protocol DataParser {
 public class JSONDataParser: DataParser {
     public var decoder: JSONDecoder
     
-    public init(decoder: JSONDecoder) {
+    public init(
+        decoder: JSONDecoder = JSONDecoder(),
+        keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .convertFromSnakeCase
+    ) {
         self.decoder = decoder
+        self.decoder.keyDecodingStrategy = keyDecodingStrategy
     }
     
     public func parse<T>(_ data: Data) throws -> T where T : Decodable {

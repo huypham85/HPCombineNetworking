@@ -5,10 +5,10 @@ import XCTest
 
 class JSONDataParserTests: XCTestCase {
     var jsonDataParser: JSONDataParser!
-
+    
     override func setUp() {
         super.setUp()
-        jsonDataParser = JSONDataParser(decoder: JSONDecoder())
+        jsonDataParser = JSONDataParser()
     }
     
     override func tearDown() {
@@ -45,7 +45,7 @@ class JSONDataParserTests: XCTestCase {
             XCTAssertTrue(error is DecodingError, "Expected DecodingError but got \(type(of: error))")
         }
     }
-
+    
     func testParseDataWithSnakeCase() {
         
         struct Name: Codable {
@@ -60,9 +60,7 @@ class JSONDataParserTests: XCTestCase {
         }
         """.data(using: .utf8)!
         
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        jsonDataParser = JSONDataParser(decoder: decoder)
+        jsonDataParser = JSONDataParser()
         
         do {
             let name: Name = try jsonDataParser.parse(json)

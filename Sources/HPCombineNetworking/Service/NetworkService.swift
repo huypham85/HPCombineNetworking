@@ -11,7 +11,11 @@ public final class NetworkService: Networkable {
     private let errorHandler: NetworkErrorHandling
     private let session: URLSession
     
-    public init(parser: DataParser, errorHandler: NetworkErrorHandling, session: URLSession = .shared) {
+    public init(
+        parser: DataParser,
+        errorHandler: NetworkErrorHandling,
+        session: URLSession = .shared
+    ) {
         self.parser = parser
         self.errorHandler = errorHandler
         self.session = session
