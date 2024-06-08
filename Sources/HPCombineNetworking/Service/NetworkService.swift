@@ -13,7 +13,7 @@ public final class NetworkService: Networkable {
     
     public init(
         parser: DataParser,
-        errorHandler: NetworkErrorHandling,
+        errorHandler: NetworkErrorHandling = NetworkErrorHandler(),
         session: URLSession = .shared
     ) {
         self.parser = parser
